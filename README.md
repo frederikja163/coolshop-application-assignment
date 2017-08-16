@@ -91,3 +91,51 @@ Your implementation should satisfy the following reqirements:
  * If `min_bucket_count > max_bucket_count`, either raise an error, or consider a reasonable way to decide which values to use instead
  * If there are fewer products than `min_bucket_count`, just return a single bucket. Consider what the `to` and `from` values should be
 * You will likely need a way to compare two "sets" of buckets, i.e. buckets having different `interval` values. Explain why you chose the one you made
+
+
+## Creating Elasticsearch synonyms file
+We use Elasticsearch as our product database, and for powering our search system. Elasticsearch gives the oppotunity for providing a synonym file, consisting of words that are connected and should evaluate to each other during searcing. For example, if a user types "ps4" we want to also search for "playstation 4". 
+
+We represent a synonym as a dictionary consisting of two text strings and a synonym type: `{'text1': 'ps4', 'text2': 'playstation 4', 'synonym_type': 'T'}`
+
+where `synonym_type` can be one of the two types:
+
+* One-way, represented by `'O'`: `text1` evaluate to `text2` but not the other way around, e.g., 'Animal' => 'Cat'
+* Two-way, represented by `'T'`: Each of the text strings `text1` and `text2` evaluate to the other, e.g., 'wow' <=> 'World Of Warcraft'
+
+Example data are found in `synonyms_data.py`.
+
+We want these synonym dictionaries to be outputted in a text file understandable by Elasticsearch in the following format:
+
+		# Blank lines and lines starting with pound are comments.
+		
+		# Explicit mappings (one-ways) match any token sequence on the left side of "=>"
+		# and replace with all alternatives on the right side.
+		i-pod, i pod => ipod,
+		sea biscuit, sea biscit => seabiscuit
+		
+		# Equvivalent synonyms (two-ways) can be listed, seperated by commas.
+		# Examples:
+		ipod, i-pod, i pod
+		wow, world of warcraft
+		lol, laughing out loud
+		
+		# Note that "ipod, i-pod, i pod" is equivalent to the explicit mapping:
+		ipod, i-pod, i pod => ipod, i-pod, i pod
+	
+More information about Elasticsearch synonyms can be found at <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-synonym-tokenfilter.html">Elasticsearch Homepage</a>.
+
+We want the file to contain as few lines as possible., i.e., synonyms should be solved as much as possible. Consider the following:
+
+		{'text1': 'animal', 'text2': 'pet', 'synonym_type': 'T'}
+		{'text1': 'pet', 'text2': 'cat', 'synonym_type': 'O'}
+		{'text1': 'cat', 'text2': 'garfield', 'synonym_type': 'O'}
+
+Animal and pet points at each other in a two-way relationship. Pet points at cat and cat at garfield. Pet should therefore resolve to cat and garfield. A synonym file for this example is shown below (note that several solutions exists):
+
+		animal, pet => animal, pet, cat, garfield
+		cat => cat, garfield
+
+This task can be solved using various strategies. Choose the one you feel statisfying, and describe your thoughts.
+		
+		
