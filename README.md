@@ -22,14 +22,23 @@ Implement the function
 As an example, 99.01 becomes 99.50, and 5.50 becomes 5.50, 99.51 becomes 99.95, and 99.96 becomes 100.00.
 
 ## Product Feeds
-We create feeds with our prices to several price comparison sites, e.g. PriceRunner and Prisjakt.
-Some of these sites want XML, others want CSV, and some might want even other formats.
-Propose a design to handle the creation of these feeds.
-Consider how easy it would be to extend to create other formats.
+We create product feeds with our prices to several price comparison sites, e.g. PriceRunner and Prisjakt.
+Some of these sites want XML, some want CSV, and some want even other formats.
+Several of these sites only want a subset of our products, e.g., games and consoles, or clothes.
+
+We want a simple way of adding and editing these feeds. Propose a solution that can do the following:
+
+* It must be easy to add a new feed
+* When adding a feed, it must be easy to ensure that only products in some categories get added to the feed
+* When adding a feed, it must be easy to ensure that products in some categories are *not* added to the feed
+* It must be easy to enable and disable feeds
+* Each feed should be exactly one format, e.g., CSV or XML. If a receiver wants several formats with the same contents, it should be different feeds
+* Adding other supported formats should not be a major task
+* When adding a feed, the output format should be chosen among of the supported formats
 
 It is perfectly okay to simply note down your thoughts for this, and not write any code.
 If you *do* implement a solution, test it using the product IDs provided in the file `product_feed.py`. Note that any product might at any point in time become unavailable.
-Products data can be downloaded from `https://www.coolshop.dk/produkt/{product_id}.json`.
+Product data can be downloaded from `https://www.coolshop.dk/produkt/{product_id}.json`.
 
 ## Premium and Date Handling
 We provide a Premium subscription, to let customers buy products cheaper.
