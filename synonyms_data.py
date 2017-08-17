@@ -4,7 +4,7 @@ synonyms = [
     {'text1': 'animal', 'text2': 'pet', 'synonym_type': 'T'},
     {'text1': 'animal', 'text2': 'lion', 'synonym_type': 'O'},
     {'text1': 'pet', 'text2': 'cat', 'synonym_type': 'O'},
-    {'text1': 'pet', 'text2': 'dog', 'synonym_type': ''},
+    {'text1': 'pet', 'text2': 'dog', 'synonym_type': 'O'},
     {'text1': 'wow', 'text2': 'world of warcraft', 'synonym_type': 'T'},
     {'text1': 'cat', 'text2': 'garfield', 'synonym_type': 'O'},
     {'text1': 'playstation 3', 'ps3': '', 'synonym_type': 'T'},

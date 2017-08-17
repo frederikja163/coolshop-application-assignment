@@ -94,7 +94,7 @@ Your implementation should satisfy the following reqirements:
 
 
 ## Creating Elasticsearch synonyms file
-We use Elasticsearch as our product database, and for powering our search system. Elasticsearch gives the oppotunity for providing a synonym file, consisting of words that are connected and should evaluate to each other during searcing. For example, if a user types "ps4" we want to also search for "playstation 4". 
+We use Elasticsearch as our product database, and for powering our search system. Elasticsearch gives the oppotunity for providing a synonym file, consisting of words that are connected and should evaluate to each other during searching. For example, if a user types "ps4" we want to also search for "playstation 4". 
 
 We represent a synonym as a dictionary consisting of two text strings and a synonym type: `{'text1': 'ps4', 'text2': 'playstation 4', 'synonym_type': 'T'}`
 
