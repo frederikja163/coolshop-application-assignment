@@ -37,8 +37,8 @@ We want a simple way of adding and editing these feeds. Propose a solution that 
 * When adding a feed, the output format should be chosen among of the supported formats
 
 It is perfectly okay to simply note down your thoughts for this, and not write any code.
-If you *do* implement a solution, test it using the product IDs provided in the file `product_feed.py`. Note that any product might at any point in time become unavailable.
-Product data can be downloaded from `https://www.coolshop.dk/produkt/{product_id}.json`.
+If you *do* implement a solution, you can test it using the product IDs provided in the file `product_feed.py`, or find other product IDs from Coolshop. Note that any product might at any point in time become unavailable.
+Product data can be downloaded from `https://www.coolshop.dk/api/products/{id}`.
 
 ## Premium and Date Handling
 We provide a Premium subscription, to let customers buy products cheaper.

@@ -1,11 +1,12 @@
-products = [
-    'AN4EF3',
-    'AE93CR',
+example_products = [
+    'AJ64XM',
+    'AJ2ZV7',
     'A9Q4MK',
     'AC97HP',
-    'AK967J',
+    'A2B7Q8',
     'AB2S93',
-    'AB2JT9',
-    'AN67HP',
+    'AC5TV7',
+    'AE3B48',
     'AK54VQ',
-    'AD53ZH']
+    'AD53ZH',
+]
