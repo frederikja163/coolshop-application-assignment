@@ -40,7 +40,7 @@ It is perfectly okay to simply note down your thoughts for this, and not write a
 If you *do* implement a solution, you can test it using the product IDs provided in the file `product_feed.py`, or find other product IDs from Coolshop. Note that any product might at any point in time become unavailable.
 Product data can be downloaded from `https://www.coolshop.dk/api/products/{id}`.
 
-## D) Calculate next delivery day
+## D) Calculate delivery day
 Customers often like to know when their orders are delivered, so we want to calculate an expected delivery date.
 
 We deliver orders within 1-2 work days in Denmark. If the order is placed before 15:00 (danish time) on a work day the customer can expect the package the following work day. If the order is placed on a non work day or after 15:00 it will be delivered after 2 work days.
