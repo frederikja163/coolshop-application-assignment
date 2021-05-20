@@ -40,21 +40,29 @@ It is perfectly okay to simply note down your thoughts for this, and not write a
 If you *do* implement a solution, you can test it using the product IDs provided in the file `product_feed.py`, or find other product IDs from Coolshop. Note that any product might at any point in time become unavailable.
 Product data can be downloaded from `https://www.coolshop.dk/api/products/{id}`.
 
-## D) Premium and Date Handling
-We provide a Premium subscription, to let customers buy products cheaper.
-The first time a customer signs up for Premium, they get an entire month for free, after that, each month costs 39 DKK.
-Payment happens the same day each month, e.g. if a Premium has signed up the 15th, the money will be charged the 15th every month.
-To prevent February from causing problems, subscriptions created on the 29th, 30th, and 31st of any month, behave as if they were created on the 1st of the following month instead.
-When a Premium subscription is cancelled, the customer is still a Premium member for the rest of the payment period.
-If the cancellation happens on the payment day, it is assumed the money has already been charged,
+## D) Calculate next delivery day
+Customers often like to know when their orders are delivered, so we want to calculate an expected delivery date.
 
-* Implement the function `get_first_payment_date(signup_date: date, previous_premium: boolean) -> date`.
-* Implement the function `get_end_date(sign_up_date: date, cancel_date: date) -> date`.
-* Implement the function `get_billing_day(signup_date: date) -> int`.
+We deliver orders within 1-2 work days in Denmark. If the order is placed before 15:00 (danish time) on a work day the customer can expect the package the following work day. If the order is placed on a non work day or after 15:00 it will be delivered after 2 work days.
 
-An example could be a new customer signing up for Premium on 2016-07-15. `get_first_payment_date(2016-07-15, False)` would return 2016-08-15 and `get_billing_day` would return 15. If the customer just a day later decides they do not want to be Premium, `get_end_date(2016-07-15, 2016-07-16)` would return 2016-08-15.
+We are closed on Danish Public Holidays and in addition do not consider 5th of June (Constitution Day) and 31th of December (New Year’s Eve) as work days.
 
-Some time later, at 2016-12-29, the customer buys a premium subscription again. This time, `get_first_payment_date(2016-12-29, True)` would return 2017-01-01, and `get_billing_day` would return 1. On 2017-03-01 the customer decides to cancel the Premium subscription again, and `get_end_date(2016-12-29, 2017-03-01)` return 2017-04-01.
+Write a function that takes a datetime representing the time the order was placed and returns an expected delivery date. Below is some examples of expected behaviour. Notice the use of UTC timezone.
+
+```
+>> from datetime import timezone
+>> get_delivery_date(datetime.datetime(2021, 5, 20, 12, 51, 32, 199883, tzinfo=timezone.utc))
+>> datetime.date(2021, 5, 21)
+
+>> get_delivery_date(datetime.datetime(2021, 5, 20, 13, 3, 31, 245381, tzinfo=timezone.utc))
+>> datetime.date(2021, 5, 25)
+
+>> get_delivery_date(datetime.datetime(2020, 12, 29, 12, 15, 12, 0, tzinfo=timezone.utc))
+>> datetime.date(2020, 12, 30)
+
+>> get_delivery_date(datetime.datetime(2020, 12, 29, 14, 15, 12, 0, tzinfo=timezone.utc))
+>> datetime.date(2021, 1, 4)
+```
 
 ## E) Code Improvements
 The function `Ugly_Function` is quite ugly and inefficient, and we want an improved version. Read and understand the function, and implement a more readable and efficient version in `pretty_function`.
